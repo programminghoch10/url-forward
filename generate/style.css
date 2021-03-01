@@ -1,0 +1,16 @@
+
+body {
+background-color: black;
+color: white;
+}
+
+textarea {
+    width: 50%;
+    min-width: 20em;
+    max-width: 100%;
+    min-height: 5em;
+}
+
+p {
+    margin: 0;
+}

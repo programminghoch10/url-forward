@@ -5,8 +5,51 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+      //because we use relative urls for when the domain changes we need to prepare the location
+      if (window.location.search) window.location.search = ""
+      if (window.location.href.endsWith("?")) window.location.href = window.location.href.substring(0, window.location.href.length - 1)
+      if (window.location.href.endsWith("generate") && !window.location.href.endsWith("/")) window.location.href += "/"
+      if (window.location.href.endsWith("index.html")) window.location.href = window.location.href.substring(0, "index.html".length)
+    </script>
+
+    <!-- import the best brackets of them all -->
+    <script src="https://ilijazm.github.io/burning-brackets-js/burning-brackets.min.js"></script>
   </head>
   <body>
-    foo, bar
+    <h1>URL-Forward Generator</h1>
+    <p>Input a snippet and select the type to generate a link.</p>
+    <br>
+    <p>Input:</p>
+    <form id="form" action="javascript:void(0)">
+    <textarea id=input></textarea>
+    <br><br>
+
+    <p>Type:</p>
+    <input id="radio-redirect" type="radio" name="type" value="redirect">
+    <label for="radio-redirect">Redirect</label>
+    <br>
+    <input id="radio-script" type="radio" name="type" value="script">
+    <label for="radio-script">Script</label>
+    <br>
+    <input id="radio-iframe" type="radio" name="type" value="iframe">
+    <label for="radio-iframe">iframe</label>
+    <br><br>
+
+    <input type="submit" value="Generate">
+    <br><br>
+    </form>
+
+    <div id=outputdiv style="display: none;">
+      <p>Output:</p>
+      <textarea id=output></textarea>
+      <br>
+      <input type="button" id="openlink" value="Open Link">
+      <br>
+    </div>
+
+    <script src="generate.js">
+    </script>
   </body>
 </html>
