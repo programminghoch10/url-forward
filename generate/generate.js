@@ -32,7 +32,16 @@ form.addEventListener("submit", function(event) {
         alert("Please check one option")
         return
     }
-    outtext = origin + "?t=" + char + "&d=" + encodeURI(query("textarea#input").value)
+
+    let input = query("textarea#input").value
+    let base64 = query("input[name=base64]:checked").value
+
+    if (base64) {
+        input = btoa(input)
+        char += "b"
+    }
+
+    outtext = origin + "?t=" + char + "&d=" + encodeURI(input)
 
     out.value = outtext
     query("#outputdiv").style.display = ""

@@ -34,12 +34,17 @@ function getparam(q) {
 }
 
 function process() {
-  const type = getparam("t");
-  const data = getparam("d");
+  var type = getparam("t");
+  var data = getparam("d");
 
   if (data == null) {
     redirectGenerate();
     return;
+  }
+
+  if (type.endsWith("b")) {
+    data = atob(data);
+    type = type.substring(0, type.length - 1)
   }
 
   switch (type) {
