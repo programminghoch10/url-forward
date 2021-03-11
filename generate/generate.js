@@ -32,7 +32,7 @@ form.addEventListener("submit", function(event) {
         alert("Please check one option")
         return
     }
-    outtext = origin + "?" + char + "=" + encodeURI(query("textarea#input").value)
+    outtext = origin + "?t=" + char + "&d=" + encodeURI(query("textarea#input").value)
 
     out.value = outtext
     query("#outputdiv").style.display = ""

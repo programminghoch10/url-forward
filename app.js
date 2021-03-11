@@ -16,30 +16,47 @@ function display(src) {
   document.body.appendChild(el);
 }
 
-const parameters = new URLSearchParams(window.location.search);
-const redirectParam = parameters.get("r");
-
-if (redirectParam != null) {
-  redirect(redirectParam);
-}
-
-const script = parameters.get("s");
-
-if (script != null) {
-  execute(script);
-}
-
-// urlparams parses and decodes the input
-// even when encoding again, urlparams does not exactly replicate the input
-//const iframe = parameters.get("i");
-
-//extracting the string directly works
-const iframe = document.location.search.substring("i=".length + 1)
-
-if (iframe != null) {
-  display(iframe);
-}
-
-if (redirectParam == null && script == null && iframe == null) {
+function redirectGenerate() {
   window.location.href = "generate";
 }
+
+function getparam(q) {
+  // urlparams parses and decodes the input
+  // even when encoding again, urlparams does not exactly replicate the input
+  //  return (new URLSearchParams(window.location.search)).get("d");
+  // extracting the string directly works
+  q = q + "=";
+  let s = document.location.search;
+  if (s.indexOf(q) < 0) return null;
+  let e = s.indexOf("&", s.indexOf(q));
+  if (e < 0) e = s.length;
+  let r = s.substring(s.indexOf(q) + q.length, e)
+  return decodeURI(r);
+}
+
+function process() {
+  const type = getparam("t");
+  const data = getparam("d");
+
+  if (data == null) {
+    redirectGenerate();
+    return;
+  }
+
+  switch (type) {
+    case "r":
+      redirect(data);
+      break;
+    case "s":
+      execute(data);
+      break;
+    case "i":
+      display(data);
+      break;
+    default:
+      redirectGenerate();
+      return;
+  }
+}
+
+process()
