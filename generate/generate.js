@@ -14,7 +14,7 @@ form.addEventListener("submit", function(event) {
     let outtext = ""
     let selectedType = null
     try {
-        selectedType = document.querySelector('input[name=type]:checked').value
+        selectedType = query('input[name=type]:checked').value
     } catch {}
 
     let char = ""

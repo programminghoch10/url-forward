@@ -1,8 +1,7 @@
 function redirect(url) {
-  if (!redirectParam.startsWith("http")) {
-    url = "https://" + redirectParam;
+  if (!url.startsWith("http")) {
+    url = "https://" + url;
   }
-
   window.location.href = url;
 }
 
