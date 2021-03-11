@@ -1,19 +1,16 @@
-function getel(el) {
-    return document.getElementById(el)
-}
-var form = getel("form")
+var form = query("#form")
 
 var origin = window.location.href.substring(0, window.location.href.length - ("generate/".length))
 
 form.addEventListener("submit", function(event) {
     event.preventDefault()
     
-    if (getel("input").value === "") {
+    if (query("#input").value === "") {
         alert("Missing input!")
         return
     }
 
-    let out = getel("output")
+    let out = query("#output")
     let outtext = ""
     let selectedType = null
     try {
@@ -38,10 +35,10 @@ form.addEventListener("submit", function(event) {
     outtext = origin + "?" + char + "=" + encodeURI(query("textarea#input").value)
 
     out.value = outtext
-    getel("outputdiv").style.display = ""
+    query("#outputdiv").style.display = ""
 })
 
-getel("openlink").addEventListener("click", function(event) {
+query("#openlink").addEventListener("click", function(event) {
     event.preventDefault()
     let url = query("textarea#output").value
     window.open(url, '_blank')
