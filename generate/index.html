@@ -24,25 +24,29 @@
     <p>Input:</p>
     <form id="form" action="javascript:void(0)">
     <textarea id=input></textarea>
-    <br><br>
 
-    <p>Type:</p>
-    <input id="radio-redirect" type="radio" name="type" value="redirect">
-    <label for="radio-redirect">Redirect</label>
-    <br>
-    <input id="radio-script" type="radio" name="type" value="script">
-    <label for="radio-script">Script</label>
-    <br>
-    <input id="radio-iframe" type="radio" name="type" value="iframe">
-    <label for="radio-iframe">iFrame</label>
-    <br><br>
+    <div id="typediv">
+      <p>Type:</p>
+      <input id="radio-redirect" type="radio" name="type" value="redirect">
+      <label for="radio-redirect">Redirect</label>
+      <br>
+      <input id="radio-script" type="radio" name="type" value="script">
+      <label for="radio-script">Script</label>
+      <br>
+      <input id="radio-iframe" type="radio" name="type" value="iframe">
+      <label for="radio-iframe">iFrame</label>
+    </div>
 
     <input id="checkbox-base64" type="checkbox" name="base64" value="base64">
     <label for="checkbox-base64">Enable Base64 Encoding</label>
-    <br><br>
+    <br>
 
-    <input type="submit" value="Generate">
-    <br><br>
+    <label for="title">Title: </label>
+    <input id="title" type="text" name="title" value="" placeholder="URL-Forward">
+    <br>
+
+    <input type="submit" value="Generate" id="submit">
+    
     </form>
 
     <div id=outputdiv style="display: none;">

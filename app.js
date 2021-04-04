@@ -36,6 +36,7 @@ function getparam(q) {
 function process() {
   var type = getparam("t")
   var data = getparam("d")
+  var title = getparam("h")
 
   if (data == null) {
     redirectGenerate()
@@ -46,6 +47,10 @@ function process() {
     data = atob(data)
     type = type.substring(0, type.length - 1)
     title = atob(title)
+  }
+
+  if (title) {
+      document.title = title
   }
 
   switch (type) {

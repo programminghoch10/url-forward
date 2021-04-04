@@ -35,13 +35,15 @@ form.addEventListener("submit", function(event) {
 
     let input = query("textarea#input").value
     let base64 = query("input#checkbox-base64").checked
+    let title = query("input#title").value
 
     if (base64) {
         input = btoa(input)
         char += "b"
+        title = btoa(title)
     }
 
-    outtext = origin + "?t=" + char + "&d=" + encodeURI(input)
+    outtext = origin + "?t=" + char + "&d=" + encodeURI(input) + (title ? "&h=" + title : "")
 
     out.value = outtext
     query("#outputdiv").style.display = ""
