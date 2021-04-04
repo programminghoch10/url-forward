@@ -52,3 +52,29 @@ query("#openlink").addEventListener("click", function(event) {
     let url = query("textarea#output").value
     window.open(url, '_blank')
 })
+
+query("#copylink").addEventListener("click", function(event){
+    event.preventDefault()
+    copyOutputToClipboard();
+})
+
+function copyOutputToClipboard() {
+    var textarea = query("textarea#output")
+    if (!navigator.clipboard) {
+        textarea.focus()
+        textarea.select()
+        try {
+            var successful = document.execCommand('copy')
+            if (!successful) throw "unsuccessful"
+            console.log('Copy to clipboard successful.')
+        } catch (err) {
+            console.error('Fallback: Oops, unable to copy', err)
+        }
+        return;
+    }
+    navigator.clipboard.writeText(textarea.value).then(function() {
+        console.log('Copy to clipboard successful.')
+    }, function(err) {
+        alert("copy failed!")
+    });
+}
