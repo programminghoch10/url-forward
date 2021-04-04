@@ -1,65 +1,66 @@
 function redirect(url) {
   if (!url.startsWith("http")) {
-    url = "https://" + url;
+    url = "https://" + url
   }
-  window.location.href = url;
+  window.location.href = url
 }
 
 function execute(script) {
-  eval(script);
+  eval(script)
 }
 
 function display(src) {
-  const el = document.createElement("iframe");
-  el.src = src;
-  document.body.appendChild(el);
+  const el = document.createElement("iframe")
+  el.src = src
+  document.body.appendChild(el)
 }
 
 function redirectGenerate() {
-  window.location.href = "generate";
+  window.location.href = "generate"
 }
 
 function getparam(q) {
   // urlparams parses and decodes the input
   // even when encoding again, urlparams does not exactly replicate the input
-  //  return (new URLSearchParams(window.location.search)).get("d");
+  //  return (new URLSearchParams(window.location.search)).get("d")
   // extracting the string directly works
-  q = q + "=";
-  let s = document.location.search;
-  if (s.indexOf(q) < 0) return null;
-  let e = s.indexOf("&", s.indexOf(q));
-  if (e < 0) e = s.length;
+  q = q + "="
+  let s = document.location.search
+  if (s.indexOf(q) < 0) return null
+  let e = s.indexOf("&", s.indexOf(q))
+  if (e < 0) e = s.length
   let r = s.substring(s.indexOf(q) + q.length, e)
-  return decodeURI(r);
+  return decodeURI(r)
 }
 
 function process() {
-  var type = getparam("t");
-  var data = getparam("d");
+  var type = getparam("t")
+  var data = getparam("d")
 
   if (data == null) {
-    redirectGenerate();
-    return;
+    redirectGenerate()
+    return
   }
 
   if (type.endsWith("b")) {
-    data = atob(data);
+    data = atob(data)
     type = type.substring(0, type.length - 1)
+    title = atob(title)
   }
 
   switch (type) {
     case "r":
-      redirect(data);
-      break;
+      redirect(data)
+      break
     case "s":
-      execute(data);
-      break;
+      execute(data)
+      break
     case "i":
-      display(data);
-      break;
+      display(data)
+      break
     default:
-      redirectGenerate();
-      return;
+      redirectGenerate()
+      return
   }
 }
 

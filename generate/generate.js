@@ -55,7 +55,7 @@ query("#openlink").addEventListener("click", function(event) {
 
 query("#copylink").addEventListener("click", function(event){
     event.preventDefault()
-    copyOutputToClipboard();
+    copyOutputToClipboard()
 })
 
 function copyOutputToClipboard() {
@@ -70,11 +70,11 @@ function copyOutputToClipboard() {
         } catch (err) {
             console.error('Fallback: Oops, unable to copy', err)
         }
-        return;
+        return
     }
     navigator.clipboard.writeText(textarea.value).then(function() {
         console.log('Copy to clipboard successful.')
     }, function(err) {
         alert("copy failed!")
-    });
+    })
 }
