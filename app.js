@@ -46,6 +46,7 @@ function process() {
   if (type.endsWith("b")) {
     data = atob(data)
     type = type.substring(0, type.length - 1)
+    title = title ? title : "" //convert null to empty string
     title = atob(title)
   }
 
