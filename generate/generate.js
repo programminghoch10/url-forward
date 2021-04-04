@@ -34,7 +34,7 @@ form.addEventListener("submit", function(event) {
     }
 
     let input = query("textarea#input").value
-    let base64 = query("input[name=base64]:checked").value
+    let base64 = query("input#checkbox-base64").checked
 
     if (base64) {
         input = btoa(input)
