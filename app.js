@@ -18,6 +18,7 @@ function display(src) {
 
 function setBodyHTML(html) {
   document.body.innerHTML = html
+  document.querySelectorAll("body script").forEach(script => eval(script.text))
 }
 
 function setBodyText(text) {
