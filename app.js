@@ -14,6 +14,14 @@ function display(src) {
   document.body.appendChild(el)
 }
 
+function setBodyHTML(html) {
+  document.body.innerHTML = html
+}
+
+function setBodyText(text) {
+  document.body.innerText = text
+}
+
 function redirectGenerate() {
   window.location.href = "generate"
 }
@@ -69,6 +77,12 @@ function process() {
       break
     case "i":
       display(data)
+      break
+    case "t":
+      setBodyText(data)
+      break
+    case "h":
+      setBodyHTML(data)
       break
     default:
       redirectGenerate()

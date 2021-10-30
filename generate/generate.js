@@ -32,6 +32,12 @@ form.addEventListener("submit", function (event) {
     case "iframe":
       char = "i"
       break
+    case "text":
+      char = "t"
+      break
+    case "html":
+      char = "h"
+      break
     default:
       alert("Please check one option")
       return
