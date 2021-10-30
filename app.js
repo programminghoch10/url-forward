@@ -1,5 +1,5 @@
 function redirect(url) {
-  if (!url.startsWith("http")) {
+  if (!url.includes("://")) {
     url = "https://" + url
   }
   window.location.href = url
