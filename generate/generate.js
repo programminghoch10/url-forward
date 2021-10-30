@@ -1,3 +1,7 @@
+function query(element) {
+  return document.querySelector(element)
+}
+
 var form = query("#form")
 
 var origin = window.location.href.substring(0, window.location.href.length - ("generate/".length))
