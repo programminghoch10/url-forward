@@ -82,6 +82,11 @@ query("textarea#input").addEventListener("input", () => {
   generateOutput()
 })
 
+query("input#title").addEventListener("input", () => {
+  if (!query("input#checkbox-autosubmit").checked) return
+  generateOutput()
+})
+
 query("#openlink").addEventListener("click", function (event) {
   event.preventDefault()
   let url = query("textarea#output").value
