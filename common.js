@@ -1,5 +1,9 @@
 
-function copyToClipboard(text) {
+function query(element) {
+  return document.querySelector(element)
+}
+
+async function copyToClipboard(text) {
   if (!navigator.clipboard) {
     textarea.focus()
     textarea.select()
@@ -8,13 +12,14 @@ function copyToClipboard(text) {
       if (!successful) throw "unsuccessful"
       console.log('Copy to clipboard successful.')
     } catch (err) {
-      console.error('Fallback: Oops, unable to copy', err)
+      console.error('Unable to copy', err)
+      throw "unsuccessful"
     }
     return
   }
-  navigator.clipboard.writeText(text).then(function () {
+  await navigator.clipboard.writeText(text).then(function () {
     console.log('Copy to clipboard successful.')
   }, function (err) {
-    alert("copy failed!")
+    throw "unsuccessful"
   })
 }

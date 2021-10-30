@@ -1,6 +1,3 @@
-function query(element) {
-  return document.querySelector(element)
-}
 
 var form = query("#form")
 
@@ -36,6 +33,9 @@ function generateOutput(alertUserOnFailure) {
       break
     case "html":
       char = "h"
+      break
+    case "clipboard":
+      char = "c"
       break
     default:
       if (alertUserOnFailure) alert("Please check one option")
@@ -90,5 +90,9 @@ query("#openlink").addEventListener("click", function (event) {
 
 query("#copylink").addEventListener("click", function (event) {
   event.preventDefault()
-  copyToClipboard(query("textarea#output").value)
+  try {
+    copyToClipboard(query("textarea#output").value)
+  } catch (e) {
+    alert("copy to clipboard unsuccessful")
+  }
 })
