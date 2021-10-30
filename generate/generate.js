@@ -6,15 +6,14 @@ var form = query("#form")
 
 var origin = window.location.href.substring(0, window.location.href.length - ("generate/".length))
 
-form.addEventListener("submit", function (event) {
-  event.preventDefault()
+function generateOutput(alertUserOnFailure) {
 
   if (query("#input").value === "") {
-    alert("Missing input!")
+    if (alertUserOnFailure) alert("Missing input!")
+    setOutput()
     return
   }
 
-  let out = query("#output")
   let outtext = ""
   let selectedType = null
   try {
@@ -39,7 +38,8 @@ form.addEventListener("submit", function (event) {
       char = "h"
       break
     default:
-      alert("Please check one option")
+      if (alertUserOnFailure) alert("Please check one option")
+      setOutput()
       return
   }
 
@@ -54,9 +54,32 @@ form.addEventListener("submit", function (event) {
   }
 
   outtext = origin + "?t=" + char + "&d=" + encodeURI(input) + (title ? "&h=" + title : "")
+  setOutput(outtext)
+}
 
-  out.value = outtext
-  query("#outputdiv").style.display = ""
+function setOutput(text) {
+  let out = query("#output")
+  out.value = text
+  if (text) {
+    query("#outputdiv").style.display = ""
+  } else {
+    query("#outputdiv").style.display = "none"
+  }
+}
+
+form.addEventListener("submit", function (event) {
+  event.preventDefault()
+  generateOutput(true)
+})
+
+form.addEventListener("change", () => {
+  if (!query("input#checkbox-autosubmit").checked) return
+  generateOutput()
+})
+
+query("textarea#input").addEventListener("input", () => {
+  if (!query("input#checkbox-autosubmit").checked) return
+  generateOutput()
 })
 
 query("#openlink").addEventListener("click", function (event) {
