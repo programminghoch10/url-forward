@@ -4,12 +4,14 @@ function redirect(url) {
 }
 
 function execute(script) {
+  setBodyClasses(true, false)
   eval(script)
 }
 
 function display(src) {
+  setBodyClasses(false, true)
   src = sanitizeURL(src)
-  const el = document.createElement("iframe")
+  let el = document.createElement("iframe")
   el.src = src
   document.body.appendChild(el)
 }
@@ -19,11 +21,17 @@ function setBodyHTML(html) {
 }
 
 function setBodyText(text) {
+  setBodyClasses(true, false)
   document.body.innerText = text
 }
 
 function redirectGenerate() {
   window.location.href = "generate"
+}
+
+function setBodyClasses(black, margin) {
+  document.body.classList[black ? "add" : "remove"]("black")
+  document.body.classList[margin ? "add" : "remove"]("margin")
 }
 
 function sanitizeURL(url) {
