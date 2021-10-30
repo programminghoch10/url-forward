@@ -51,7 +51,7 @@ function process() {
   }
 
   if (title) {
-      document.title = title
+    document.title = title
   }
 
   switch (type) {

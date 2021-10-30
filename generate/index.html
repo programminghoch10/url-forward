@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -7,7 +8,7 @@
     <title>URL-Forward Generator</title>
     <link rel="stylesheet" href="style.css">
     <script>
-      //because we use relative urls for when the domain changes we need to prepare the location
+      //we use relative urls for when the domain changes, so we need to prepare the location
       if (window.location.search) window.location.search = ""
       if (window.location.href.endsWith("?")) window.location.href = window.location.href.substring(0, window.location.href.length - 1)
       if (window.location.href.endsWith("generate") && !window.location.href.endsWith("/")) window.location.href += "/"
@@ -15,38 +16,33 @@
     </script>
     <script src="../common.js"></script>
   </head>
+
   <body>
     <h1>URL-Forward Generator</h1>
     <p>Input a snippet and select the type to generate a link.</p>
     <br>
     <p>Input:</p>
     <form id="form" action="javascript:void(0)">
-    <textarea id=input></textarea>
-
-    <div id="typediv">
-      <p>Type:</p>
-      <input id="radio-redirect" type="radio" name="type" value="redirect">
-      <label for="radio-redirect">Redirect</label>
+      <textarea id=input></textarea>
+      <div id="typediv">
+        <p>Type:</p>
+        <input id="radio-redirect" type="radio" name="type" value="redirect">
+        <label for="radio-redirect">Redirect</label>
+        <br>
+        <input id="radio-script" type="radio" name="type" value="script">
+        <label for="radio-script">Script</label>
+        <br>
+        <input id="radio-iframe" type="radio" name="type" value="iframe">
+        <label for="radio-iframe">iFrame</label>
+      </div>
+      <input id="checkbox-base64" type="checkbox" name="base64" value="base64">
+      <label for="checkbox-base64">Enable Base64 Encoding</label>
       <br>
-      <input id="radio-script" type="radio" name="type" value="script">
-      <label for="radio-script">Script</label>
+      <label for="title">Title: </label>
+      <input id="title" type="text" name="title" value="" placeholder="URL-Forward">
       <br>
-      <input id="radio-iframe" type="radio" name="type" value="iframe">
-      <label for="radio-iframe">iFrame</label>
-    </div>
-
-    <input id="checkbox-base64" type="checkbox" name="base64" value="base64">
-    <label for="checkbox-base64">Enable Base64 Encoding</label>
-    <br>
-
-    <label for="title">Title: </label>
-    <input id="title" type="text" name="title" value="" placeholder="URL-Forward">
-    <br>
-
-    <input type="submit" value="Generate" id="submit">
-    
+      <input type="submit" value="Generate" id="submit">
     </form>
-
     <div id=outputdiv style="display: none;">
       <p>Output:</p>
       <textarea id=output></textarea>
@@ -55,8 +51,8 @@
       <input type="button" id="copylink" value="Copy Output">
       <br>
     </div>
-
     <script src="generate.js">
     </script>
   </body>
+
 </html>

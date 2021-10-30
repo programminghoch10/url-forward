@@ -6,62 +6,57 @@ var form = query("#form")
 
 var origin = window.location.href.substring(0, window.location.href.length - ("generate/".length))
 
-form.addEventListener("submit", function(event) {
-    event.preventDefault()
-    
-    if (query("#input").value === "") {
-        alert("Missing input!")
-        return
-    }
+form.addEventListener("submit", function (event) {
+  event.preventDefault()
 
-    let out = query("#output")
-    let outtext = ""
-    let selectedType = null
-    try {
-        selectedType = query('input[name=type]:checked').value
-    } catch {}
+  if (query("#input").value === "") {
+    alert("Missing input!")
+    return
+  }
 
-    let char = ""
-    switch(selectedType) {
-        case "redirect":
-            char = "r"
-        break
-        case "script":
-            char = "s"
-        break
-        case "iframe":
-            char = "i"
-        break
-        default:
-        alert("Please check one option")
-        return
-    }
+  let out = query("#output")
+  let outtext = ""
+  let selectedType = null
+  try {
+    selectedType = query('input[name=type]:checked').value
+  } catch { }
 
-    let input = query("textarea#input").value
-    let base64 = query("input#checkbox-base64").checked
-    let title = query("input#title").value
+  let char = ""
+  switch (selectedType) {
+    case "redirect":
+      char = "r"
+      break
+    case "script":
+      char = "s"
+      break
+    case "iframe":
+      char = "i"
+      break
+    default:
+      alert("Please check one option")
+      return
+  }
 
-    if (base64) {
-        input = btoa(input)
-        char += "b"
-        title = btoa(title)
-    }
+  let input = query("textarea#input").value
+  let base64 = query("input#checkbox-base64").checked
+  let title = query("input#title").value
 
-    outtext = origin + "?t=" + char + "&d=" + encodeURI(input) + (title ? "&h=" + title : "")
+  if (base64) {
+    input = btoa(input)
+    char += "b"
+    title = btoa(title)
+  }
 
-    out.value = outtext
-    query("#outputdiv").style.display = ""
+  outtext = origin + "?t=" + char + "&d=" + encodeURI(input) + (title ? "&h=" + title : "")
+
+  out.value = outtext
+  query("#outputdiv").style.display = ""
 })
 
-query("#openlink").addEventListener("click", function(event) {
-    event.preventDefault()
-    let url = query("textarea#output").value
-    window.open(url, '_blank')
-})
-
-query("#copylink").addEventListener("click", function(event){
-    event.preventDefault()
-    copyOutputToClipboard()
+query("#openlink").addEventListener("click", function (event) {
+  event.preventDefault()
+  let url = query("textarea#output").value
+  window.open(url, '_blank')
 })
 
 query("#copylink").addEventListener("click", function (event) {
