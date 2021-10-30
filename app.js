@@ -1,7 +1,5 @@
 function redirect(url) {
-  if (!url.includes("://")) {
-    url = "https://" + url
-  }
+  url = sanitizeURL(url)
   window.location.href = url
 }
 
@@ -10,6 +8,7 @@ function execute(script) {
 }
 
 function display(src) {
+  src = sanitizeURL(src)
   const el = document.createElement("iframe")
   el.src = src
   document.body.appendChild(el)
@@ -17,6 +16,13 @@ function display(src) {
 
 function redirectGenerate() {
   window.location.href = "generate"
+}
+
+function sanitizeURL(url) {
+  if (!url.includes("://")) {
+    url = "https://" + url
+  }
+  return url
 }
 
 function getparam(q) {
