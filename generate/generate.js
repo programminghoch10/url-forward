@@ -24,14 +24,11 @@ function generateOutput(alertUserOnFailure) {
   let char = selectedType
 
   let input = query("textarea#input").value
-  let base64 = query("input#checkbox-base64").checked
   let title = query("input#title").value
 
-  if (base64) {
-    input = btoa(input)
-    char += "b"
-    title = btoa(title)
-  }
+  input = btoa(input)
+  title = btoa(title)
+
 
   outtext = origin + "?t=" + char + "&d=" + encodeURI(input) + (title ? "&h=" + encodeURI(title) : "")
   setOutput(outtext)
@@ -50,14 +47,11 @@ function fillFromOutput() {
   })
 
   let data = getparam("d", inText)
-  let base64 = type.indexOf("b") >= 0
-  query("input#checkbox-base64").checked = base64
-  if (base64) data = atob(data)
+  data = atob(data)
   query("#input").value = data
 
   let title = getparam("h", inText)
-  if (title != null && base64) title = atob(title)
-  query("input#title").value = title == null ? "" : title
+  query("input#title").value = atob(title)
 }
 
 function setOutput(text) {

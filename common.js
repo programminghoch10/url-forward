@@ -35,7 +35,7 @@ function getparam(param, search) {
   // extracting the string directly works
   param = param + "="
   let s = search == undefined ? window.location.search : search
-  if (s.indexOf(param) < 0) return null
+  if (s.indexOf(param) < 0) return ""
   let e = s.indexOf("&", s.indexOf(param))
   if (e < 0) e = s.length
   let r = s.substring(s.indexOf(param) + param.length, e)

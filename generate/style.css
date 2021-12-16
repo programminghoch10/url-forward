@@ -15,6 +15,6 @@ p {
   margin: 0;
 }
 
-div#typediv, textarea#input, input#submit, input#checkbox-base64, input#title {
+div#typediv, textarea#input, input#submit, input#title {
   margin-bottom: 1em;
 }
