@@ -1,6 +1,10 @@
 
-function query(element) {
-  return document.querySelector(element)
+function query(selector) {
+  return document.querySelector(selector)
+}
+
+function queryAll(selector) {
+  return document.querySelectorAll(selector)
 }
 
 async function copyToClipboard(text) {
@@ -22,4 +26,18 @@ async function copyToClipboard(text) {
   }, function (err) {
     throw "unsuccessful"
   })
+}
+
+function getparam(param, search) {
+  // urlparams parses and decodes the input
+  // even when encoding again, urlparams does not exactly replicate the input
+  //  return (new URLSearchParams(window.location.search)).get("d")
+  // extracting the string directly works
+  param = param + "="
+  let s = search == undefined ? window.location.search : search
+  if (s.indexOf(param) < 0) return null
+  let e = s.indexOf("&", s.indexOf(param))
+  if (e < 0) e = s.length
+  let r = s.substring(s.indexOf(param) + param.length, e)
+  return decodeURI(r)
 }

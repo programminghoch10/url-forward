@@ -69,20 +69,6 @@ function closeTab() {
   window.close()
 }
 
-function getparam(q) {
-  // urlparams parses and decodes the input
-  // even when encoding again, urlparams does not exactly replicate the input
-  //  return (new URLSearchParams(window.location.search)).get("d")
-  // extracting the string directly works
-  q = q + "="
-  let s = document.location.search
-  if (s.indexOf(q) < 0) return null
-  let e = s.indexOf("&", s.indexOf(q))
-  if (e < 0) e = s.length
-  let r = s.substring(s.indexOf(q) + q.length, e)
-  return decodeURI(r)
-}
-
 function process() {
   var type = getparam("t")
   var data = getparam("d")
