@@ -37,6 +37,29 @@ function generateOutput(alertUserOnFailure) {
   setOutput(outtext)
 }
 
+function fillFromOutput() {
+  if (query("#output").value === "") {
+    return
+  }
+
+  let inText = query("#output").value
+  inText = inText.substring(origin)
+  let type = getparam("t", inText)
+  queryAll("input[name=type]").forEach((el) => {
+    el.checked = type.indexOf(el.value) >= 0
+  })
+
+  let data = getparam("d", inText)
+  let base64 = type.indexOf("b") >= 0
+  query("input#checkbox-base64").checked = base64
+  if (base64) data = atob(data)
+  query("#input").value = data
+
+  let title = getparam("h", inText)
+  if (title != null && base64) title = atob(title)
+  query("input#title").value = title == null ? "" : title
+}
+
 function setOutput(text) {
   let out = query("#output")
   out.value = text
@@ -59,6 +82,12 @@ form.addEventListener("change", () => {
 
 query("textarea#input").addEventListener("input", () => {
   if (!query("input#checkbox-autosubmit").checked) return
+  generateOutput()
+})
+
+query("input#import").addEventListener("click", () => {
+  query("#output").value = prompt("Input link")
+  fillFromOutput()
   generateOutput()
 })
 
