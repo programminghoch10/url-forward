@@ -55,13 +55,12 @@ function fillFromOutput() {
 }
 
 function setOutput(text) {
+  text = text ? text : ""
   let out = query("#output")
   out.value = text
-  if (text) {
-    query("#outputdiv").style.display = ""
-  } else {
-    query("#outputdiv").style.display = "none"
-  }
+  query("#outputdiv").style.display = text ? "" : "none"
+  let longURL = text.length > 2048
+  query("p#lengthwarn").style.display = longURL ? "" : "none"
 }
 
 form.addEventListener("submit", function (event) {
