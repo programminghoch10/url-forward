@@ -16,32 +16,12 @@ function generateOutput(alertUserOnFailure) {
   try {
     selectedType = query('input[name=type]:checked').value
   } catch { }
-
-  let char = ""
-  switch (selectedType) {
-    case "redirect":
-      char = "r"
-      break
-    case "script":
-      char = "s"
-      break
-    case "iframe":
-      char = "i"
-      break
-    case "text":
-      char = "t"
-      break
-    case "html":
-      char = "h"
-      break
-    case "clipboard":
-      char = "c"
-      break
-    default:
-      if (alertUserOnFailure) alert("Please check one option")
-      setOutput()
-      return
+  if (selectedType == null) {
+    if (alertUserOnFailure) alert("Please check one option")
+    setOutput()
+    return
   }
+  let char = selectedType
 
   let input = query("textarea#input").value
   let base64 = query("input#checkbox-base64").checked
@@ -53,7 +33,7 @@ function generateOutput(alertUserOnFailure) {
     title = btoa(title)
   }
 
-  outtext = origin + "?t=" + char + "&d=" + encodeURI(input) + (title ? "&h=" + title : "")
+  outtext = origin + "?t=" + char + "&d=" + encodeURI(input) + (title ? "&h=" + encodeURI(title) : "")
   setOutput(outtext)
 }
 
