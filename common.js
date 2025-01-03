@@ -41,3 +41,10 @@ function getparam(param, search) {
   let r = s.substring(s.indexOf(param) + param.length, e)
   return decodeURI(r)
 }
+
+function sanitizeURL(url) {
+  if (!url.includes("://")) {
+    url = "https://" + url
+  }
+  return new URL(url).toString()
+}

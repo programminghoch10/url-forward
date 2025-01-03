@@ -8,6 +8,7 @@ function generateOutput(alertUserOnFailure) {
   if (query("#input").value === "") {
     if (alertUserOnFailure) alert("Missing input!")
     setOutput()
+    document.querySelector("p#urlpreview").style.display = 'none'
     return
   }
 
@@ -29,9 +30,19 @@ function generateOutput(alertUserOnFailure) {
   input = btoa(input)
   title = btoa(title)
 
+  generatePreviewUrl(selectedType)
 
   outtext = origin + "?t=" + char + "&d=" + encodeURI(input) + (title ? "&h=" + encodeURI(title) : "")
   setOutput(outtext)
+}
+
+function generatePreviewUrl(selectedType) {
+  let urlpreview = document.querySelector("p#urlpreview")
+  let active = selectedType === 'r' || selectedType === 'i'
+  urlpreview.style.display = active ? '' : 'none'
+  if (!active) return
+  let input = query("textarea#input").value
+  urlpreview.innerText = `Parsed URL: ${sanitizeURL(input)}`
 }
 
 function fillFromOutput() {

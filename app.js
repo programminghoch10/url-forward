@@ -58,13 +58,6 @@ function setBodyClasses(black, margin) {
   document.body.classList[margin ? "add" : "remove"]("margin")
 }
 
-function sanitizeURL(url) {
-  if (!url.includes("://")) {
-    url = "https://" + url
-  }
-  return url
-}
-
 function closeTab() {
   window.close()
 }
