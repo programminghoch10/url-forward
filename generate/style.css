@@ -22,3 +22,7 @@ p#lengthwarn {
 div#typediv, textarea#input, input#submit, input#title {
   margin-bottom: 1em;
 }
+
+input#submit:has(+input#checkbox-autosubmit:checked) {
+  display: none;
+}
