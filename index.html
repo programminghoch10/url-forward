@@ -7,12 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>URL-Forward</title>
     <style>
-      body.black {
-        background-color: black;
-        color: white;
+      @media (prefers-color-scheme: dark) {
+        body.daynight {
+          background-color: black;
+          color: white;
+        }
       }
 
-      body.margin {
+      body.nomargin {
         margin: 0;
         height: 100%;
       }
@@ -39,7 +41,7 @@
     </style>
   </head>
 
-  <body>
+  <body class="daynight">
     <script src="common.js"></script>
     <script src="app.js"></script>
   </body>

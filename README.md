@@ -21,5 +21,18 @@ Clipboard|Copy provided text to clipboard and close afterwards
 As a special use case the url
 https://programminghoch10.github.io/url-forward/oauth
 can be used as an oauth redirect url
-to obtain the token and scope in plain text
-after oauth authentication easily.
+to obtain the token and scope in plain text easily.
+
+## Development Notes
+
+### Dark Mode
+The body has
+[automatic dark mode css rules](index.html#L10-L15)
+applied by default. \
+If you explicitely don't want this,
+remove the class `daynight` from the body
+using javascript:
+```js
+document.body.classList.remove('daynight')
+```
+Dark mode is always disabled for iFrame type.

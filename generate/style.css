@@ -1,7 +1,8 @@
-
-body {
-  background-color: black;
-  color: white;
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: black;
+    color: white;
+  }
 }
 
 textarea {
@@ -19,8 +20,11 @@ p#lengthwarn {
   color: red;
 }
 
-div#typediv, textarea#input, input#submit, input#title {
-  margin-bottom: 1em;
+div#typediv,
+textarea#input,
+input#submit,
+input#title {
+  margin-block: 0.5em;
 }
 
 input#submit:has(+input#checkbox-autosubmit:checked) {

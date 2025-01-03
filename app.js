@@ -4,7 +4,6 @@ function redirect(url) {
 }
 
 function execute(script) {
-  setBodyClasses(true, false)
   eval(script)
 }
 
@@ -22,7 +21,6 @@ function setBodyHTML(html) {
 }
 
 function setBodyText(text) {
-  setBodyClasses(true, false)
   document.body.innerText = text
 }
 
@@ -53,9 +51,9 @@ function redirectGenerate() {
   window.location.href = "generate"
 }
 
-function setBodyClasses(black, margin) {
-  document.body.classList[black ? "add" : "remove"]("black")
-  document.body.classList[margin ? "add" : "remove"]("margin")
+function setBodyClasses(daynight, removemargin) {
+  document.body.classList[daynight ? "add" : "remove"]("daynight")
+  document.body.classList[removemargin ? "add" : "remove"]("nomargin")
 }
 
 function closeTab() {
