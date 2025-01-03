@@ -1,3 +1,3 @@
 # URL-Forward
 
-https://ilijazm.github.io/url-forward/
+https://programminghoch10.github.io/url-forward/
