@@ -43,8 +43,15 @@ function getparam(param, search) {
 }
 
 function sanitizeURL(url) {
-  if (!url.includes("://")) {
-    url = "https://" + url
+  try {
+    return new URL(url).toString()
+  } catch (error) {
+    if (!(error instanceof TypeError))
+      throw error
+    if (error.message.endsWith("Invalid URL"))
+      try {
+        return new URL("https://" + url).toString()
+      } catch (_) { }
+    throw error
   }
-  return new URL(url).toString()
 }
