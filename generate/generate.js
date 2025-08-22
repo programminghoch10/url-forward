@@ -47,19 +47,23 @@ async function generateOutput(alertUserOnFailure) {
       break
   }
 
-  let title = query("input#title").value
-
   if (!input) {
     if (alertUserOnFailure) alert("Failed to find input data.")
     return
   }
-  input = btoa(input)
-  title = btoa(title)
 
   generatePreviewUrl(selectedType)
 
-  let char = selectedType
-  outtext = origin + "?t=" + char + "&d=" + encodeURI(input) + (title ? "&h=" + encodeURI(title) : "")
+  let exportAsDataURI = query("input#checkbox-datauri").checked
+    && DATAURITYPES.includes(selectedType)
+  if (exportAsDataURI) {
+    outtext = await generateDataURI(selectedType, input)
+  } else {
+    input = btoa(input)
+    let title = query("input#title").value
+    title = btoa(title)
+    outtext = origin + "?t=" + selectedType + "&d=" + encodeURI(input) + (title ? "&h=" + encodeURI(title) : "")
+  }
   setOutput(outtext)
 }
 
@@ -79,17 +83,48 @@ function generatePreviewUrl(selectedType) {
   }
 }
 
+const DATAURITYPES = ["t", "h", "f", "s"]
+async function generateDataURI(selectedType, data) {
+  if (!DATAURITYPES.includes(selectedType))
+    throw `data uri not supported for type ${selectedType}`
+  switch (selectedType) {
+    case "f":
+      let transferObject = JSON.parse(data)
+      let file = new File(
+        [transferObject.data],
+        transferObject.name,
+        { type: transferObject.type },
+      )
+      return await new Promise((resolve, reject) => {
+        const fileReader = new FileReader()
+        fileReader.onload = () => resolve(fileReader.result)
+        fileReader.onerror = (e) => reject(e)
+        fileReader.readAsDataURL(file)
+      })
+    case "h":
+      return `data:text/html;base64,${btoa(data)}`
+    case "t":
+      return `data:text/plain;base64,${btoa(data)}`
+    case "s":
+      return `javascript:${data}`
+    default:
+      throw `type ${selectedType} not handled`
+  }
+}
+
 function fillFromOutput() {
-  if (query("#output").value === "") {
+  let inText = query("#output").value
+  if (inText === "") {
     return
   }
 
-  let inText = query("#output").value
+  if (inText.startsWith("data:") || inText.startsWith("javascript:"))
+    return fillFromOutputUri()
+
   inText = inText.substring(origin)
+
   let type = getparam("t", inText)
-  queryAll("input[name=type]").forEach((el) => {
-    el.checked = type.indexOf(el.value) >= 0
-  })
+  setTypeRadioButtons(type)
 
   let data = getparam("d", inText)
   data = atob(data)
@@ -117,6 +152,35 @@ function fillFromOutput() {
 
   let title = getparam("h", inText)
   query("input#title").value = atob(title)
+}
+
+function setTypeRadioButtons(type) {
+  if (!type) throw "missing type for setting radio buttons"
+  queryAll("input[name=type]").forEach((el) => {
+    el.checked = type.indexOf(el.value) >= 0
+  })
+}
+
+function fillFromOutputUri() {
+  let inText = query("#output").value
+  if (inText === "")
+    return
+  query("input#checkbox-datauri").checked = true
+  let type = undefined
+  if (inText.startsWith("data:text/html")) type = "h"
+  if (inText.startsWith("data:text/plain")) type = "t"
+  if (inText.startsWith("javascript:")) type = "s"
+  if (!type) {
+    alert("Unable to import data URI. Be aware, that importing files is not supported.")
+    return
+  }
+  setTypeRadioButtons(type)
+
+  let data = inText.replace(/^(javascript:|data:text\/(html|plain)(;base64)?,)/, "")
+  let base64 = /^data:text\/(html|plain);base64,/.test(inText)
+  if (base64)
+    data = atob(data)
+  query("#input").value = data
 }
 
 function setOutput(text) {

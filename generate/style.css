@@ -58,3 +58,33 @@ form#form:has(input#radio-redirect:checked,
   input#radio-iframe:checked) p#urlpreview {
   display: unset;
 }
+
+div#datauridiv,
+p#bookmarkletinfo {
+  display: none;
+}
+
+body:has(input#radio-file:checked,
+  input#radio-html:checked,
+  input#radio-text:checked,
+  input#radio-script:checked) {
+  div#datauridiv {
+    display: unset;
+  }
+
+  &:has(input#checkbox-datauri:checked) {
+    div#titlediv {
+      display: none;
+    }
+
+    input#openlink {
+      display: none;
+    }
+
+    &:has(input#radio-script:checked) {
+      p#bookmarkletinfo {
+        display: unset;
+      }
+    }
+  }
+}

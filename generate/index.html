@@ -61,17 +61,27 @@
           <input type="text" id="fileupload-name" name="filename">
         </div>
       </div>
-      <label for="title">Title: </label>
-      <input id="title" type="text" name="title" value="" placeholder="URL-Forward">
-      <br>
+      <div id="titlediv">
+        <label for="title">Title: </label>
+        <input id="title" type="text" name="title" value="" placeholder="URL-Forward">
+        <br>
+      </div>
       <input type="submit" value="Generate" id="submit">
       <input id="checkbox-autosubmit" type="checkbox" name="autosubmit" value="autosubmit" checked="true">
       <label for="checkbox-autosubmit">Auto generate</label>
+      <div id="datauridiv">
+        <br>
+        <input id="checkbox-datauri" type="checkbox" name="datauri">
+        <label for="checkbox-datauri">Export as <code>data URI</code></label>
+      </div>
     </form>
     <div id=outputdiv style="display: none;">
+      <br>
       <p>Output:</p>
       <p id="lengthwarn" style="display: none;">The generated URL exceeds 2048 characters. Many browsers do not support
         URLs longer than this. We recommend you to shorten your input.</p>
+      <p id="bookmarkletinfo">This generates a <a href="https://en.wikipedia.org/wiki/Bookmarklet">Bookmarklet</a>.
+        Linebreaks will be treated as whitespace, so be sure to place semicolons where necessary.</p>
       <textarea id=output></textarea>
       <br>
       <input type="button" id="openlink" value="Open Link">
