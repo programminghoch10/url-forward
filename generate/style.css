@@ -30,3 +30,22 @@ input#title {
 input#submit:has(+input#checkbox-autosubmit:checked) {
   display: none;
 }
+
+textarea#input:has(input#radio-file:checked) {
+  display: none;
+}
+
+div#fileupload {
+  display: none;
+}
+
+form#form:has(input#radio-file:checked) {
+
+  div#inputdiv {
+    display: none;
+  }
+
+  div#fileupload {
+    display: unset;
+  }
+}

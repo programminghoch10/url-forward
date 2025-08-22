@@ -47,6 +47,25 @@ async function copyTextToClipboard(text) {
   }
 }
 
+function downloadFile(transferObject) {
+  transferObject = JSON.parse(transferObject)
+  let name = transferObject.name
+  let type = transferObject.type
+  let data = transferObject.data
+  let blob = new Blob([data], { type })
+  let url = window.URL.createObjectURL(blob)
+  const a = document.createElement("a")
+  a.innerText = `Save ${name}`
+  a.href = url
+  a.download = name
+  try {
+    a.click()
+    closeTab()
+  } catch {
+    document.body.appendChild(a)
+  }
+}
+
 function redirectGenerate() {
   window.location.href = "generate"
 }
@@ -95,6 +114,9 @@ function process() {
       break
     case "c":
       copyTextToClipboard(data)
+      break
+    case "f":
+      downloadFile(data)
       break
     default:
       redirectGenerate()

@@ -23,12 +23,15 @@
     <br>
     <input type="button" id="import" value="Import from link"><br>
     <br>
-    <p>Input:</p>
     <form id="form" action="javascript:void(0)">
-      <textarea id=input></textarea>
+      <div id="inputdiv">
+        <label for="input">Input:</label><br>
+        <textarea id=input></textarea>
+      </div>
       <p id="urlpreview" style="display: none;"></p>
+      <br>
+      <label for="typediv">Type:</label><br>
       <div id="typediv">
-        <p>Type:</p>
         <input id="radio-redirect" type="radio" name="type" value="r">
         <label for="radio-redirect">Redirect</label>
         <br>
@@ -46,6 +49,14 @@
         <br>
         <input id="radio-clipboard" type="radio" name="type" value="c">
         <label for="radio-clipboard">Clipboard</label>
+        <br>
+        <input id="radio-file" type="radio" name="type" value="f">
+        <label for="radio-file">File</label>
+        <div id="fileupload">
+          <br>
+          <label for="fileupload-file">Attach file:</label>
+          <input type="file" id="fileupload-file" name="file">
+        </div>
       </div>
       <label for="title">Title: </label>
       <input id="title" type="text" name="title" value="" placeholder="URL-Forward">

@@ -3,14 +3,7 @@ var form = query("#form")
 
 var origin = window.location.href.substring(0, window.location.href.length - ("generate/".length))
 
-function generateOutput(alertUserOnFailure) {
-
-  if (query("#input").value === "") {
-    if (alertUserOnFailure) alert("Missing input!")
-    setOutput()
-    document.querySelector("p#urlpreview").style.display = 'none'
-    return
-  }
+async function generateOutput(alertUserOnFailure) {
 
   let outtext = ""
   let selectedType = null
@@ -22,16 +15,48 @@ function generateOutput(alertUserOnFailure) {
     setOutput()
     return
   }
-  let char = selectedType
 
-  let input = query("textarea#input").value
+  let input = ""
+  switch (selectedType) {
+    default:
+      if (query("#input").value === "") {
+        if (alertUserOnFailure) alert("Missing input!")
+        setOutput()
+        generatePreviewUrl()
+        return
+      }
+      input = query("textarea#input").value
+      break
+    case "f":
+      let fileUploadElement = query("#fileupload-file")
+      let file = fileUploadElement.files[0]
+      if (!file) {
+        if (alertUserOnFailure) alert("Missing input!")
+        setOutput()
+        generatePreviewUrl()
+        return
+      }
+      let data = await file.text()
+      input = JSON.stringify({
+        name: file.name,
+        type: file.type,
+        data: data,
+      })
+      break
+  }
+
   let title = query("input#title").value
 
+  if (!input) {
+    if (alertUserOnFailure) alert("Failed to find input data.")
+    return
+  }
   input = btoa(input)
   title = btoa(title)
 
   generatePreviewUrl(selectedType)
 
+  let char = selectedType
   outtext = origin + "?t=" + char + "&d=" + encodeURI(input) + (title ? "&h=" + encodeURI(title) : "")
   setOutput(outtext)
 }
@@ -59,7 +84,24 @@ function fillFromOutput() {
 
   let data = getparam("d", inText)
   data = atob(data)
-  query("#input").value = data
+  switch (type) {
+    default:
+      query("#input").value = data
+      break
+    case "f":
+      let transferObject = JSON.parse(data)
+      let file = new File(
+        [transferObject.data],
+        transferObject.name,
+        { type: transferObject.type },
+      )
+      let fileUploadElement = query("#fileupload-file")
+      // thx https://dev.to/code_rabbi/programmatically-setting-file-inputs-in-javascript-2p7i
+      const dataTransfer = new DataTransfer()
+      dataTransfer.items.add(file)
+      fileUploadElement.files = dataTransfer.files
+      break
+  }
 
   let title = getparam("h", inText)
   query("input#title").value = atob(title)
