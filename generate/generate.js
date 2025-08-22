@@ -22,7 +22,7 @@ async function generateOutput(alertUserOnFailure) {
       if (query("#input").value === "") {
         if (alertUserOnFailure) alert("Missing input!")
         setOutput()
-        generatePreviewUrl()
+        generatePreviewUrl(selectedType)
         return
       }
       input = query("textarea#input").value
@@ -33,7 +33,6 @@ async function generateOutput(alertUserOnFailure) {
       if (!file) {
         if (alertUserOnFailure) alert("Missing input!")
         setOutput()
-        generatePreviewUrl()
         return
       }
       let data = await file.text()
@@ -64,10 +63,17 @@ async function generateOutput(alertUserOnFailure) {
 function generatePreviewUrl(selectedType) {
   let urlpreview = document.querySelector("p#urlpreview")
   let active = selectedType === 'r' || selectedType === 'i'
-  urlpreview.style.display = active ? '' : 'none'
   if (!active) return
   let input = query("textarea#input").value
-  urlpreview.innerText = `Parsed URL: ${sanitizeURL(input)}`
+  if (input == "") {
+    urlpreview.innerText = `No URL provided.`
+    return
+  }
+  try {
+    urlpreview.innerText = `Parsed URL: ${sanitizeURL(input)}`
+  } catch (e) {
+    urlpreview.innerText = `Failed to parse URL: ${e}`
+  }
 }
 
 function fillFromOutput() {

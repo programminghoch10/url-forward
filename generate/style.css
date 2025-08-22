@@ -49,3 +49,12 @@ form#form:has(input#radio-file:checked) {
     display: unset;
   }
 }
+
+p#urlpreview {
+  display: none;
+}
+
+form#form:has(input#radio-redirect:checked,
+  input#radio-iframe:checked) p#urlpreview {
+  display: unset;
+}
