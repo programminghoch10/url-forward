@@ -7,10 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>URL-Forward</title>
     <style>
-      @media (prefers-color-scheme: dark) {
-        body.daynight {
-          background-color: black;
-          color: white;
+      @supports selector(:has(*)) {
+        :root:has(body.daynight) {
+          color-scheme: light dark;
         }
       }
 

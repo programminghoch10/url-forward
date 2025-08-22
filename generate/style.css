@@ -1,8 +1,5 @@
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: black;
-    color: white;
-  }
+:root {
+  color-scheme: light dark;
 }
 
 textarea {
