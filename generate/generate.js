@@ -35,9 +35,12 @@ async function generateOutput(alertUserOnFailure) {
         setOutput()
         return
       }
+      let fileNameElement = query("#fileupload-name")
+      let fileName = fileNameElement.value || undefined
       let data = await file.text()
       input = JSON.stringify({
         name: file.name,
+        fname: fileName,
         type: file.type,
         data: data,
       })
@@ -106,6 +109,9 @@ function fillFromOutput() {
       const dataTransfer = new DataTransfer()
       dataTransfer.items.add(file)
       fileUploadElement.files = dataTransfer.files
+      let fileNameElement = query("#fileupload-name")
+      fileNameElement.value = transferObject.fname ?? ""
+      fileUploadElement.dispatchEvent(new Event("change"))
       break
   }
 
@@ -161,4 +167,12 @@ query("#copylink").addEventListener("click", function (event) {
   } catch (e) {
     alert("copy to clipboard unsuccessful")
   }
+})
+
+query("#fileupload-file").addEventListener("change", function () {
+  let fileUploadElement = query("#fileupload-file")
+  let file = fileUploadElement.files[0]
+  if (!file) return
+  let fileNameElement = query("#fileupload-name")
+  fileNameElement.setAttribute('placeholder', file.name)
 })

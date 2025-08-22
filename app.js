@@ -50,6 +50,7 @@ async function copyTextToClipboard(text) {
 function downloadFile(transferObject) {
   transferObject = JSON.parse(transferObject)
   let name = transferObject.name
+  let overrideName = transferObject.fname
   let type = transferObject.type
   let data = transferObject.data
   let blob = new Blob([data], { type })
@@ -57,7 +58,7 @@ function downloadFile(transferObject) {
   const a = document.createElement("a")
   a.innerText = `Save ${name}`
   a.href = url
-  a.download = name
+  a.download = overrideName ?? name
   try {
     a.click()
     closeTab()
