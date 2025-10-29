@@ -28,7 +28,7 @@ async function copyToClipboard(text) {
   })
 }
 
-function getparam(param, search) {
+function getParam(param, search) {
   // urlparams parses and decodes the input
   // even when encoding again, urlparams does not exactly replicate the input
   //  return (new URLSearchParams(window.location.search)).get("d")

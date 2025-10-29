@@ -81,9 +81,9 @@ function closeTab() {
 }
 
 function process() {
-  var type = getparam("t")
-  var data = getparam("d")
-  var title = getparam("h")
+  var type = getParam("t")
+  var data = getParam("d")
+  var title = getParam("h")
 
   if (data == null) {
     redirectGenerate()

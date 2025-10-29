@@ -50,7 +50,7 @@
     <script>
       function copyToken() {
         try {
-          copyToClipboard(getparam("code"))
+          copyToClipboard(getParam("code"))
           query("#buttoncopynotice").innerText = "Copy successful"
           query("#buttoncopynotice").style.color = "lime"
         } catch (error) {
@@ -58,8 +58,8 @@
           query("#buttoncopynotice").style.color = "red"
         }
       }
-      query("#token").innerText = getparam("code")
-      query("#scope").innerText = getparam("scope")
+      query("#token").innerText = getParam("code")
+      query("#scope").innerText = getParam("scope")
     </script>
   </body>
 

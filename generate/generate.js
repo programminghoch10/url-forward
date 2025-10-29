@@ -123,10 +123,10 @@ function fillFromOutput() {
 
   inText = inText.substring(origin)
 
-  let type = getparam("t", inText)
+  let type = getParam("t", inText)
   setTypeRadioButtons(type)
 
-  let data = getparam("d", inText)
+  let data = getParam("d", inText)
   data = atob(data)
   switch (type) {
     default:
@@ -150,7 +150,7 @@ function fillFromOutput() {
       break
   }
 
-  let title = getparam("h", inText)
+  let title = getParam("h", inText)
   query("input#title").value = atob(title)
 }
 
