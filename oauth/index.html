@@ -28,8 +28,25 @@
         margin-inline-start: 1em;
       }
 
+      textarea {
+        field-sizing: content;
+        min-width: 25ch;
+        min-height: min-content;
+        max-width: 100%;
+        max-height: max-content;
+      }
+
+      div.autohide:has(>p:empty),
+      p#buttoncopynotice:empty {
+        display: none;
+      }
+
       .gray {
-        color: gray
+        color: gray;
+      }
+
+      .red {
+        color: red;
       }
 
     </style>
@@ -38,14 +55,22 @@
   <body>
     <script src="../common.js"></script>
     <h1>OAuth2 Token</h1>
-    <p id="token"></p>
+    <textarea id="token"></textarea>
     <div style="display: flex;">
       <input type="button" value="Copy to clipboard" onclick="copyToken()">
-      <p id=" buttoncopynotice"></p>
+      <p id="buttoncopynotice"></p>
     </div>
-    <div class="gray">
+    <div class="autohide red">
+      <h4>Error:</h4>
+      <p id="error"></p>
+    </div>
+    <div class="autohide gray">
       <h4>Scope:</h4>
       <p id="scope"></p>
+    </div>
+    <div class="autohide gray">
+      <h4>State:</h4>
+      <p id="state"></p>
     </div>
     <script>
       function copyToken() {
@@ -58,8 +83,10 @@
           query("#buttoncopynotice").style.color = "red"
         }
       }
-      query("#token").innerText = getParam("code")
+      query("#token").value = getParam("code")
       query("#scope").innerText = getParam("scope")
+      query("#error").innerText = getParam("error")
+      query("#state").innerText = getParam("state")
     </script>
   </body>
 
